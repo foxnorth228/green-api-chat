@@ -1,5 +1,7 @@
 html{
     box-sizing: border-box;
+    width: 100%;
+    height: 100%;
 }
 *,
 ::before,
@@ -8,12 +10,32 @@ html{
 }
 body {
     margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper::before {
+    z-index: -1;
+    position: fixed;
+    content: '';
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 127px;
+    background-color: #00a884;
 }
 
 .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
     position: relative;
-    height: 7543px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 1px;
+    height: 1px;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #eae6df;
+    background-image: linear-gradient(180deg, #eae6df, #d1d7db);
 }
 

@@ -1,10 +1,11 @@
 import React from "react";
 import "./app.scss";
+import Chat from "@layouts/chat/chat";
 
 export const App: React.FC = () => {
   return (
     <div className="wrapper">
-      <h1>Hello React</h1>;
+      <Chat />
     </div>
   );
 };
