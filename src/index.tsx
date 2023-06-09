@@ -1,7 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "@pages/app";
+import router from "@routes/router";
+import { RouterProvider } from "react-router-dom";
 const rootNode = document.getElementById("app");
 if (rootNode) {
-  createRoot(rootNode).render(<App />);
+  console.log("root");
+  createRoot(rootNode).render(<RouterProvider router={router} />);
 }

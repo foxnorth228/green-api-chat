@@ -7,6 +7,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -34,7 +35,12 @@ module.exports = {
             {
                 test: /\.svg$/,
                 loader: 'svg-inline-loader'
-            }
+            },
+            {
+                test: /\.m?js$/,
+                enforce: 'pre',
+                use: ['source-map-loader'],
+            },
         ]
     },
     resolve: {
@@ -62,6 +68,7 @@ module.exports = {
           }),
     ],
     devServer: {
+        historyApiFallback: true,
         static: {
           directory: path.resolve(__dirname, './dist')
         }

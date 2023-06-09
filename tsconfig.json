@@ -37,6 +37,7 @@
       "@pages/*":      ["./src/pages/*"],
       "@routes/*":     ["./src/routes/*"],
       "@services/*":   ["./src/services/*"],
+      "@routes/*":   ["./src/routes/*"],
     },                              /* Specify what module code is generated. */
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "nodenext",                                     /* Specify a set of entries that re-map imports to additional lookup locations. */                                /* Allow multiple folders to be treated as one when resolving modules. */
