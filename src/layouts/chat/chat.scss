@@ -1,6 +1,10 @@
 .chat {
     width: calc(100% - 38px);
     max-width: 1600px;
+    min-width: 0px;
     height: calc(100% - 38px);
     background-color: #f0f2f5;
+    display: grid;
+    grid-template-columns: minmax(300px, 25%) min(75%, calc(100% - 300px));
+    grid-template-rows: 59px 1fr;
 }
