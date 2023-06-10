@@ -4,7 +4,8 @@
   "description": "Whatsapp chat with green-api service",
   "main": "index.tsx",
   "scripts": {
-    "dev": "npm run server & webpack serve --mode development",
+    "dev": "webpack serve --mode development",
+    "dev:server": "npm run server & webpack serve --mode development",
     "server": "node server",
     "build": "webpack --mode production --progress",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
