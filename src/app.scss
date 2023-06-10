@@ -15,7 +15,7 @@ body {
 }
 
 .wrapper::before {
-    z-index: -1;
+    z-index: 0;
     position: fixed;
     content: '';
     left: 0;
@@ -29,7 +29,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: -1;
+    z-index: 0;
     position: relative;
     width: 1px;
     height: 1px;

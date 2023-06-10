@@ -1,0 +1,21 @@
+.auth {
+    position: relative;
+    z-index: 1;
+    background-color: #f0f2f5;
+    width: 40%;
+    height: 200px;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.auth__inputblock {
+    display: flex;
+    justify-content: space-between;
+    max-width: 350px;
+    width: 80%;
+    min-width: 280px;
+}
