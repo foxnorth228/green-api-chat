@@ -1,0 +1,1 @@
+To install dependensies, use command: npm i
