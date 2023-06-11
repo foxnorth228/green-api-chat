@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import "./app.scss";
-import { Outlet, useNavigate, useOutlet } from "react-router-dom";
+import { useNavigate, useOutlet } from "react-router-dom";
 
 export const App = () => {
   const outlet = useOutlet();

@@ -5,8 +5,10 @@ import {
   ChatMessagingChatzone,
   ChatMessagingMenu,
 } from "@src/components/chat-messaging";
+import useRedirectUnauthUser from "@hooks/use-redirect-unauth-user";
 
 const Chat = () => {
+  useRedirectUnauthUser();
   return (
     <main className="chat">
       <ChatManagerMenu />
