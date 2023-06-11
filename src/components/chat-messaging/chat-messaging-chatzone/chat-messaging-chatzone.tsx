@@ -1,14 +1,25 @@
 import React, { useCallback, useState } from "react";
 import "./chat-messaging-chatzone.scss";
 import useUser from "@src/hooks/use-user";
+import useChats from "@src/hooks/use-chat";
 
 interface IChatManagerList {
   currentChat: string;
 }
 
 export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
+  const { chats, setChats } = useChats();
   const { id, token } = useUser();
-  const [messages, setMessages] = useState<Array<[boolean, string]>>([]);
+
+  const messageArrOrUnd = Object.entries(chats).find(
+    (el) => el[0] === currentChat
+  );
+  if (currentChat !== "" && !messageArrOrUnd) {
+    throw new Error("Chat" + currentChat + "not exist");
+  }
+  const messageArr =
+    ((messageArrOrUnd && messageArrOrUnd[1]) as Array<[boolean, string]>) || [];
+  console.log(messageArr, chats);
   const [message, setMessage] = useState("");
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,25 +39,28 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
       )
         .then((response) => response.json())
         .then((data) => {
-          setMessages([...messages, [true, message]]);
+          setChats({
+            ...chats,
+            [currentChat]: [...messageArr, [true, message]],
+          });
           setMessage("");
           console.log(data);
         })
         .catch((err) => console.log(err));
     },
-    [currentChat, id, message, messages, token]
+    [chats, currentChat, id, message, setChats, token]
   );
   return (
     <div className="chatMessaging chatMessagingChatzone">
       {currentChat !== "" && (
         <>
           <div className="chatMessagingChatzone__messages">
-            {messages.map((el, i) => (
+            {messageArr.map((el, i) => (
               <div
                 key={i}
                 className="chatMessagingChatzone__message"
                 style={{
-                  backgroundColor: el[0] ? "green" : "white",
+                  backgroundColor: el[0] ? "#d9fdd3" : "white",
                   alignSelf: el[0] ? "end" : "start",
                 }}
               >

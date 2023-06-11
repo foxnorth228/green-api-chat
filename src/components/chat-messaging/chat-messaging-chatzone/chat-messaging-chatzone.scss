@@ -12,10 +12,13 @@
 }
 
 .chatMessagingChatzone__message {
-    width: 100px;
+    word-wrap: break-word;
+    padding: 10px;
+    width: fit-content;
+    max-width: 300px;
     min-height: 20px;
     height: fit-content;
-    margin: 20px;
+    margin: 8px;
 }
 
 .chatMessagingChatzone__messaging {
