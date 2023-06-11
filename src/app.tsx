@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import "./app.scss";
 import { useNavigate, useOutlet } from "react-router-dom";
 

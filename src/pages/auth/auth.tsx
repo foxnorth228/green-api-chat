@@ -30,7 +30,6 @@ const Auth = () => {
           return result.json();
         })
         .then((data) => {
-          console.log(data);
           const acceptState = ["authorized", "sleepMode", "starting"];
           if (!acceptState.includes(data!.stateInstance as string)) {
             Promise.reject("This account isn't authorized or got banned");

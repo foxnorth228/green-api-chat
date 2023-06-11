@@ -22,6 +22,5 @@ const Root = () => {
 };
 
 if (rootNode) {
-  console.log("root");
   createRoot(rootNode).render(<Root />);
 }

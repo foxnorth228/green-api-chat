@@ -35,7 +35,6 @@ export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
             setChats({ ...chats, [phoneNumber]: [] });
           }
           setPhoneNumber("");
-          console.log(data);
         })
         .catch((err) => console.log(err));
     },

@@ -2,12 +2,14 @@ import React, { useCallback, useState } from "react";
 import "./chat-messaging-chatzone.scss";
 import useUser from "@src/hooks/use-user";
 import useChats from "@src/hooks/use-chat";
+import ChatMessagingReceiving from "./chat-messaging-receiving";
 
 interface IChatManagerList {
   currentChat: string;
 }
 
 export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
+  ChatMessagingReceiving();
   const { chats, setChats } = useChats();
   const { id, token } = useUser();
 
@@ -19,7 +21,6 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
   }
   const messageArr =
     ((messageArrOrUnd && messageArrOrUnd[1]) as Array<[boolean, string]>) || [];
-  console.log(messageArr, chats);
   const [message, setMessage] = useState("");
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,16 +39,16 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
         }
       )
         .then((response) => response.json())
-        .then((data) => {
+        .then(() => {
           setChats({
             ...chats,
             [currentChat]: [...messageArr, [true, message]],
           });
           setMessage("");
-          console.log(data);
         })
         .catch((err) => console.log(err));
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [chats, currentChat, id, message, setChats, token]
   );
   return (
