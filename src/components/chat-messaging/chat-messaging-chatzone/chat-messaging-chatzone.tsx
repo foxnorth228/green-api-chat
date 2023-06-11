@@ -1,6 +1,10 @@
 import React from "react";
 import "./chat-messaging-chatzone.scss";
 
-export const ChatMessagingChatzone = () => {
+interface IChatManagerList {
+  currentChat: string;
+}
+
+export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
   return <div className="chatMessaging chatMessagingChatzone"></div>;
 };

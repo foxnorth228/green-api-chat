@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./chat.scss";
 import { ChatManagerList, ChatManagerMenu } from "@components/chat-manager";
 import {
@@ -8,13 +8,19 @@ import {
 import useRedirectUnauthUser from "@hooks/use-redirect-unauth-user";
 
 const Chat = () => {
+  const [chats, setChats] = useState<Array<string>>([]);
+  const [currentChat, setCurrentChat] = useState("");
   useRedirectUnauthUser();
   return (
     <main className="chat">
       <ChatManagerMenu />
-      <ChatMessagingMenu />
-      <ChatManagerList />
-      <ChatMessagingChatzone />
+      <ChatMessagingMenu currentChat={currentChat} />
+      <ChatManagerList
+        chats={chats}
+        setChats={setChats}
+        setCurrentChat={setCurrentChat}
+      />
+      <ChatMessagingChatzone currentChat={currentChat} />
     </main>
   );
 };

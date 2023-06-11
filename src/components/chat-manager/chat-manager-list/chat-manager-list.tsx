@@ -1,10 +1,18 @@
 import React, { useCallback, useState } from "react";
 import "./chat-manager-list.scss";
-import useGreenApi from "@src/hooks/use-green-api";
 import useRedirectUnauthUser from "@src/hooks/use-redirect-unauth-user";
 import useUser from "@src/hooks/use-user";
 
-export const ChatManagerList = () => {
+interface IChatManagerList {
+  chats: string[];
+  setChats: React.Dispatch<React.SetStateAction<string[]>>;
+  setCurrentChat: React.Dispatch<React.SetStateAction<string>>;
+}
+export const ChatManagerList = ({
+  chats,
+  setChats,
+  setCurrentChat,
+}: IChatManagerList) => {
   useRedirectUnauthUser();
   const { id, token } = useUser();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -12,7 +20,6 @@ export const ChatManagerList = () => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log(phoneNumber);
       const num = Number(phoneNumber);
       fetch(
         `https://web-production-29546.up.railway.app/` +
@@ -24,10 +31,16 @@ export const ChatManagerList = () => {
         }
       )
         .then((response) => response.json())
-        .then((data) => console.log(data))
+        .then((data) => {
+          if (data!.existsWhatsapp) {
+            setChats([...chats, phoneNumber]);
+          }
+          setPhoneNumber("");
+          console.log(data);
+        })
         .catch((err) => console.log(err));
     },
-    [id, phoneNumber, token]
+    [chats, id, phoneNumber, setChats, token]
   );
   return (
     <div className="chatManagerList">
@@ -37,12 +50,26 @@ export const ChatManagerList = () => {
           type="tel"
           placeholder="Phone number..."
           pattern="[0-9]{11,12}"
+          value={phoneNumber}
           onChange={(e) => {
             setPhoneNumber(e.currentTarget.value);
           }}
         />
         <button className="chatManagerList__submit" type="submit" />
       </form>
+      <div>
+        {chats.map((el, i) => (
+          <div
+            key={i}
+            className="chatManagerList__elem"
+            onClick={() => {
+              setCurrentChat(el);
+            }}
+          >
+            {el}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
