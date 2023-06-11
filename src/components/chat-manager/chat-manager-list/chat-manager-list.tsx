@@ -46,6 +46,7 @@ export const ChatManagerList = ({
     <div className="chatManagerList">
       <form className="chatManagerList__form" onSubmit={onSubmit}>
         <input
+          name="phone"
           className="chatManagerList__phone"
           type="tel"
           placeholder="Phone number..."

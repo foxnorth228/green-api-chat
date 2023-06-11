@@ -2,3 +2,44 @@
     background-color: #efeae2;
     background-image: url('@assets/chatzone-back.png');
 }
+
+.chatMessagingChatzone__messages {
+    width: 100%;
+    height: calc(100% - 60px);
+    flex-direction: column;
+    display: flex;
+    justify-content: end;
+}
+
+.chatMessagingChatzone__message {
+    width: 100px;
+    min-height: 20px;
+    height: fit-content;
+    margin: 20px;
+}
+
+.chatMessagingChatzone__messaging {
+    background-color: #f0f2f5;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatMessagingChatzone__messageinput {
+    background-color: #ffffff;
+    border: 0;
+    width: calc(100% - 50px);
+    height: calc(100% - 20px);
+    margin: 10px 5px;
+}
+
+.chatMessagingChatzone__submit {
+    background-color: #efeae2;
+    width: 50px;
+    height: 40px;
+    &:hover{
+        cursor: pointer;
+    }
+}
