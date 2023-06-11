@@ -32,7 +32,8 @@ module.exports = {
                 type: 'asset/resource',
             },
             {
-                test: /\.svg$/,
+                test: /\.react.svg$/,
+                issuer: /\.(js|ts)x?$/,
                 loader: 'svg-inline-loader'
             },
             {

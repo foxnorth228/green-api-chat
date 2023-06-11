@@ -1,4 +1,6 @@
 .chat {
+    position: relative;
+    z-index: 100;
     width: calc(100% - 38px);
     max-width: 1600px;
     min-width: 0px;
