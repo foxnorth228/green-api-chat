@@ -8,18 +8,13 @@ import {
 import useRedirectUnauthUser from "@hooks/use-redirect-unauth-user";
 
 const Chat = () => {
-  const [chats, setChats] = useState<Array<string>>([]);
   const [currentChat, setCurrentChat] = useState("");
   useRedirectUnauthUser();
   return (
     <main className="chat">
       <ChatManagerMenu />
       <ChatMessagingMenu currentChat={currentChat} />
-      <ChatManagerList
-        chats={chats}
-        setChats={setChats}
-        setCurrentChat={setCurrentChat}
-      />
+      <ChatManagerList setCurrentChat={setCurrentChat} />
       <ChatMessagingChatzone currentChat={currentChat} />
     </main>
   );

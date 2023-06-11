@@ -3,7 +3,6 @@ import "./app.scss";
 import { useNavigate, useOutlet } from "react-router-dom";
 
 export const App = () => {
-  const [chats, setChats] = useState({});
   const outlet = useOutlet();
   const navigate = useNavigate();
   useLayoutEffect(() => {

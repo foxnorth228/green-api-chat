@@ -2,19 +2,15 @@ import React, { useCallback, useState } from "react";
 import "./chat-manager-list.scss";
 import useRedirectUnauthUser from "@src/hooks/use-redirect-unauth-user";
 import useUser from "@src/hooks/use-user";
+import useChats from "@src/hooks/use-chat";
 
 interface IChatManagerList {
-  chats: string[];
-  setChats: React.Dispatch<React.SetStateAction<string[]>>;
   setCurrentChat: React.Dispatch<React.SetStateAction<string>>;
 }
-export const ChatManagerList = ({
-  chats,
-  setChats,
-  setCurrentChat,
-}: IChatManagerList) => {
+export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
   useRedirectUnauthUser();
   const { id, token } = useUser();
+  const { chats, setChats } = useChats();
   const [phoneNumber, setPhoneNumber] = useState("");
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,8 +28,11 @@ export const ChatManagerList = ({
       )
         .then((response) => response.json())
         .then((data) => {
-          if (data!.existsWhatsapp) {
-            setChats([...chats, phoneNumber]);
+          if (
+            data!.existsWhatsapp &&
+            !Object.values(chats).includes(data!.existsWhatsapp)
+          ) {
+            setChats({ ...chats, [phoneNumber]: [] });
           }
           setPhoneNumber("");
           console.log(data);
@@ -59,7 +58,7 @@ export const ChatManagerList = ({
         <button className="chatManagerList__submit" type="submit" />
       </form>
       <div>
-        {chats.map((el, i) => (
+        {Object.keys(chats).map((el, i) => (
           <div
             key={i}
             className="chatManagerList__elem"
