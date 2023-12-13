@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "jsx": "react",
-    "module": "ESNext",  
+    "module": "NodeNext",
     "baseUrl": "./",
     "paths": {
       "@src/*":       ["./src/*"],
@@ -14,8 +14,9 @@
       "@pages/*":      ["./src/pages/*"],
       "@services/*":   ["./src/services/*"],
       "@routes/*":   ["./src/routes/*"],
+      "@store/*":   ["./src/store/*"]
     },
-    "moduleResolution": "nodenext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

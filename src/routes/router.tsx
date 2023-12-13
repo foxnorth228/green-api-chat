@@ -1,7 +1,4 @@
-import Auth from "@pages/auth/auth";
-import Chat from "@pages/chat/chat";
-import ErrorPage from "@pages/error-page/error-page";
-import { App } from "@src/app";
+import config from "@routes/config";
 import React from "react";
 import {
   createBrowserRouter,
@@ -9,12 +6,13 @@ import {
   Route,
 } from "react-router-dom";
 
+const { base, chat, login, boundary } = config;
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="chat" element={<Chat />} />
-      <Route path="login" element={<Auth />} />
-      <Route path="*" element={<ErrorPage />} />
+    <Route path={base.path} element={base.elem}>
+      <Route path={chat.path} element={chat.elem} />
+      <Route path={login.path} element={login.elem} />
+      <Route path={boundary.path} element={boundary.elem} />
     </Route>,
   ),
 );

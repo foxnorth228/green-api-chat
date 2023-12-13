@@ -1,8 +1,8 @@
 import "./chat-manager-list.scss";
 
-import useChats from "@src/hooks/use-chat";
 import useRedirectUnauthUser from "@src/hooks/use-redirect-unauth-user";
-import useUser from "@src/hooks/use-user";
+import { useChats, useChatsAddChat } from "@store/chatsSlice/hooks";
+import { useUserData } from "@store/userSlice/hooks";
 import React, { useCallback, useState } from "react";
 
 interface IChatManagerList {
@@ -10,8 +10,9 @@ interface IChatManagerList {
 }
 export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
   useRedirectUnauthUser();
-  const { id, token } = useUser();
-  const { chats, setChats } = useChats();
+  const [id, token] = useUserData();
+  const chats = useChats();
+  const addChat = useChatsAddChat();
   const [phoneNumber, setPhoneNumber] = useState("");
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,13 +32,13 @@ export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
             data!.existsWhatsapp &&
             !Object.values(chats).includes(data!.existsWhatsapp)
           ) {
-            setChats({ ...chats, [phoneNumber]: [] });
+            addChat(phoneNumber);
           }
           setPhoneNumber("");
         })
         .catch((err) => console.log(err));
     },
-    [chats, id, phoneNumber, setChats, token],
+    [addChat, chats, id, phoneNumber, token],
   );
   return (
     <div className="chatManagerList">

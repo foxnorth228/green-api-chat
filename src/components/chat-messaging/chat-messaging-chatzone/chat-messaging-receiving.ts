@@ -1,10 +1,12 @@
-import useChats from "@src/hooks/use-chat";
-import useUser from "@src/hooks/use-user";
+
+import { useUserData } from "@store/userSlice/hooks";
 import { useEffect } from "react";
+import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
 
 const ChatMessagingReceiving = () => {
-  const { chats, setChats } = useChats();
-  const { id, token } = useUser();
+  const chats = useChats();
+  const addMessage = useChatsAddMessage();
+  const [id, token] = useUserData();
   useEffect(() => {
     const timer = setInterval(() => {
       fetch(
@@ -26,14 +28,8 @@ const ChatMessagingReceiving = () => {
             if (!sender || !message) {
               return;
             }
-            const messageArrOrUnd = Object.entries(chats).find(
-              (el) => el[0] === sender,
-            );
-            const messageArr =
-              ((messageArrOrUnd && messageArrOrUnd[1]) as Array<
-                [boolean, string]
-              >) || [];
-            setChats({ ...chats, [sender]: [...messageArr, [false, message]] });
+            Object.entries(chats).find((el) => el[0] === sender);
+            addMessage(sender, { isUserOwner: false, message });
           }
         })
         .catch((err) => console.log(err));

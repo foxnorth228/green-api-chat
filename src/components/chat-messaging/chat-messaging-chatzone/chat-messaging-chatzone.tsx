@@ -1,10 +1,10 @@
 import "./chat-messaging-chatzone.scss";
 
-import useChats from "@src/hooks/use-chat";
-import useUser from "@src/hooks/use-user";
+import { useUserData } from "@store/userSlice/hooks";
 import React, { useCallback, useState } from "react";
 
 import ChatMessagingReceiving from "./chat-messaging-receiving";
+import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
 
 interface IChatManagerList {
   currentChat: string;
@@ -12,17 +12,12 @@ interface IChatManagerList {
 
 export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
   ChatMessagingReceiving();
-  const { chats, setChats } = useChats();
-  const { id, token } = useUser();
+  const chats = useChats();
+  console.log(chats);
+  const addMessage = useChatsAddMessage();
+  const [id, token] = useUserData();
 
-  const messageArrOrUnd = Object.entries(chats).find(
-    (el) => el[0] === currentChat,
-  );
-  if (currentChat !== "" && !messageArrOrUnd) {
-    throw new Error("Chat" + currentChat + "not exist");
-  }
-  const messageArr =
-    ((messageArrOrUnd && messageArrOrUnd[1]) as Array<[boolean, string]>) || [];
+  const messageArr = chats[currentChat] ?? [];
   const [message, setMessage] = useState("");
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,16 +32,12 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
       })
         .then((response) => response.json())
         .then(() => {
-          setChats({
-            ...chats,
-            [currentChat]: [...messageArr, [true, message]],
-          });
+          addMessage(currentChat, { isUserOwner: true, message });
           setMessage("");
         })
         .catch((err) => console.log(err));
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [chats, currentChat, id, message, setChats, token],
+    [addMessage, currentChat, id, message, token],
   );
   return (
     <div className="chatMessaging chatMessagingChatzone">
@@ -58,11 +49,11 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
                 key={i}
                 className="chatMessagingChatzone__message"
                 style={{
-                  backgroundColor: el[0] ? "#d9fdd3" : "white",
-                  alignSelf: el[0] ? "end" : "start",
+                  backgroundColor: el.isUserOwner ? "#d9fdd3" : "white",
+                  alignSelf: el.isUserOwner ? "end" : "start",
                 }}
               >
-                {el[1]}
+                {el.message}
               </div>
             ))}
           </div>

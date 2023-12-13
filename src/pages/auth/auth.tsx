@@ -1,13 +1,14 @@
 import "./auth.scss";
 
 import useRedirectAuthUser from "@src/hooks/use-redirect-auth-user";
-import useUser from "@src/hooks/use-user";
+import { useUserId, useUserToken } from "@store/userSlice/hooks";
 import React, { useCallback, useState } from "react";
 
 const Auth = () => {
   useRedirectAuthUser();
-  const { setId, setToken } = useUser();
-  const [instanse, setInstanse] = useState("");
+  const [, setId] = useUserId();
+  const [, setToken] = useUserToken();
+  const [instance, setInstance] = useState("");
   const [loginToken, setLoginToken] = useState("");
   const [isWrongInput, setIsWrongInput] = useState(false);
   const [messageErrorInput, setMessageErrorInput] = useState("");
@@ -16,7 +17,7 @@ const Auth = () => {
       e.preventDefault();
       e.stopPropagation();
       fetch(
-        `https://api.green-api.com/waInstance${instanse}/getStateInstance/${loginToken}`,
+        `https://api.green-api.com/waInstance${instance}/getStateInstance/${loginToken}`,
       )
         .then((result) => {
           if (result.status === 401) {
@@ -38,7 +39,8 @@ const Auth = () => {
           if (!acceptState.includes(data!.stateInstance as string)) {
             Promise.reject("This account isn't authorized or got banned");
           }
-          setId(instanse);
+          console.log(instance);
+          setId(instance);
           setToken(loginToken);
         })
         .catch((err) => {
@@ -46,7 +48,7 @@ const Auth = () => {
           setMessageErrorInput(err);
         });
     },
-    [instanse, loginToken, setId, setToken],
+    [instance, loginToken, setId, setToken],
   );
   return (
     <>
@@ -73,9 +75,9 @@ const Auth = () => {
             <input
               name="id"
               type="text"
-              value={instanse}
+              value={instance}
               onChange={(e) => {
-                setInstanse(e.currentTarget.value);
+                setInstance(e.currentTarget.value);
               }}
             />
           </label>

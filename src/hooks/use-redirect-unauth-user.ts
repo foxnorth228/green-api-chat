@@ -1,14 +1,14 @@
+import config from "@routes/config";
+import { useUserData } from "@store/userSlice/hooks";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import useUser from "./use-user";
-
 const useRedirectUnauthUser = () => {
-  const { id, token } = useUser();
+  const [id, token] = useUserData();
   const navigate = useNavigate();
   useEffect(() => {
     if (id === "" || token === "") {
-      navigate("/login");
+      navigate(config.login.path);
     }
   });
 };
