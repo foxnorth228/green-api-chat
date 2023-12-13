@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from "react";
 import "./chat-manager-list.scss";
+
+import useChats from "@src/hooks/use-chat";
 import useRedirectUnauthUser from "@src/hooks/use-redirect-unauth-user";
 import useUser from "@src/hooks/use-user";
-import useChats from "@src/hooks/use-chat";
+import React, { useCallback, useState } from "react";
 
 interface IChatManagerList {
   setCurrentChat: React.Dispatch<React.SetStateAction<string>>;
@@ -17,11 +18,12 @@ export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
       e.preventDefault();
       e.stopPropagation();
       const num = Number(phoneNumber);
-      fetch(`https://api.green-api.com/waInstance${id}/checkWhatsapp/${token}`,
+      fetch(
+        `https://api.green-api.com/waInstance${id}/checkWhatsapp/${token}`,
         {
           method: "POST",
           body: JSON.stringify({ phoneNumber: num }),
-        }
+        },
       )
         .then((response) => response.json())
         .then((data) => {
@@ -35,7 +37,7 @@ export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
         })
         .catch((err) => console.log(err));
     },
-    [chats, id, phoneNumber, setChats, token]
+    [chats, id, phoneNumber, setChats, token],
   );
   return (
     <div className="chatManagerList">

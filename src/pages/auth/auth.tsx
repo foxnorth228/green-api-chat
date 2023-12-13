@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from "react";
 import "./auth.scss";
-import useUser from "@src/hooks/use-user";
+
 import useRedirectAuthUser from "@src/hooks/use-redirect-auth-user";
+import useUser from "@src/hooks/use-user";
+import React, { useCallback, useState } from "react";
 
 const Auth = () => {
   useRedirectAuthUser();
@@ -15,7 +16,7 @@ const Auth = () => {
       e.preventDefault();
       e.stopPropagation();
       fetch(
-        `https://api.green-api.com/waInstance${instanse}/getStateInstance/${loginToken}`
+        `https://api.green-api.com/waInstance${instanse}/getStateInstance/${loginToken}`,
       )
         .then((result) => {
           if (result.status === 401) {
@@ -24,7 +25,10 @@ const Auth = () => {
             return Promise.reject("Your ID is incorrect");
           } else if (result.status > 399) {
             return Promise.reject(
-              "Something went wrong. " + result.status + " " + result.statusText
+              "Something went wrong. " +
+                result.status +
+                " " +
+                result.statusText,
             );
           }
           return result.json();
@@ -42,7 +46,7 @@ const Auth = () => {
           setMessageErrorInput(err);
         });
     },
-    [instanse, loginToken, setId, setToken]
+    [instanse, loginToken, setId, setToken],
   );
   return (
     <>

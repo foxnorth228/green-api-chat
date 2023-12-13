@@ -1,5 +1,6 @@
-import React from "react";
 import "./chat-manager-menu.scss";
+
+import React from "react";
 
 export const ChatManagerMenu = () => {
   return (

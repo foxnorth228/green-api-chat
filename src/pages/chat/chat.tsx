@@ -1,11 +1,12 @@
-import React, { useState } from "react";
 import "./chat.scss";
+
 import { ChatManagerList, ChatManagerMenu } from "@components/chat-manager";
+import useRedirectUnauthUser from "@hooks/use-redirect-unauth-user";
 import {
   ChatMessagingChatzone,
   ChatMessagingMenu,
 } from "@src/components/chat-messaging";
-import useRedirectUnauthUser from "@hooks/use-redirect-unauth-user";
+import React, { useState } from "react";
 
 const Chat = () => {
   const [currentChat, setCurrentChat] = useState("");

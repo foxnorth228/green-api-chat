@@ -15,8 +15,8 @@ const router = createBrowserRouter(
       <Route path="chat" element={<Chat />} />
       <Route path="login" element={<Auth />} />
       <Route path="*" element={<ErrorPage />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 export default router;

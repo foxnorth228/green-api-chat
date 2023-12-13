@@ -8,15 +8,16 @@ const ChatMessagingReceiving = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       fetch(
-          `https://api.green-api.com/waInstance${id}/receiveNotification/${token}`
+        `https://api.green-api.com/waInstance${id}/receiveNotification/${token}`,
       )
         .then((response) => response.json())
         .then((data) => {
           if (data) {
-            fetch(`https://api.green-api.com/waInstance${id}/deleteNotification/${token}/${
-                  data!.receiptId
-                }`,
-              { method: "DELETE" }
+            fetch(
+              `https://api.green-api.com/waInstance${id}/deleteNotification/${token}/${
+                data!.receiptId
+              }`,
+              { method: "DELETE" },
             );
             const body = data!.body;
             const sender = String(parseInt(body?.senderData?.sender));
@@ -26,7 +27,7 @@ const ChatMessagingReceiving = () => {
               return;
             }
             const messageArrOrUnd = Object.entries(chats).find(
-              (el) => el[0] === sender
+              (el) => el[0] === sender,
             );
             const messageArr =
               ((messageArrOrUnd && messageArrOrUnd[1]) as Array<

@@ -1,5 +1,6 @@
-import React, { useLayoutEffect } from "react";
 import "./app.scss";
+
+import React, { useLayoutEffect } from "react";
 import { useNavigate, useOutlet } from "react-router-dom";
 
 export const App = () => {

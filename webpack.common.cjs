@@ -5,7 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     entry: './src/index.tsx',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'public'),
         filename: 'bundle.js',
     },
     module: {
@@ -18,7 +18,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.s(a|c)ss$/,
+                test: /\.s[a|c]ss$/,
                 exclude: /node_modules/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
@@ -59,7 +59,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './index.html'
+            template: './public/index.draft.html'
           }),
           new CopyPlugin({
             patterns: [
@@ -67,10 +67,4 @@ module.exports = {
             ],
           }),
     ],
-    devServer: {
-        historyApiFallback: true,
-        static: {
-          directory: path.resolve(__dirname, './dist')
-        }
-    }
 }

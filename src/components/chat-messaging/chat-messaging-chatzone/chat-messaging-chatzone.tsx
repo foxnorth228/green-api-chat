@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from "react";
 import "./chat-messaging-chatzone.scss";
-import useUser from "@src/hooks/use-user";
+
 import useChats from "@src/hooks/use-chat";
+import useUser from "@src/hooks/use-user";
+import React, { useCallback, useState } from "react";
+
 import ChatMessagingReceiving from "./chat-messaging-receiving";
 
 interface IChatManagerList {
@@ -14,7 +16,7 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
   const { id, token } = useUser();
 
   const messageArrOrUnd = Object.entries(chats).find(
-    (el) => el[0] === currentChat
+    (el) => el[0] === currentChat,
   );
   if (currentChat !== "" && !messageArrOrUnd) {
     throw new Error("Chat" + currentChat + "not exist");
@@ -26,15 +28,13 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       e.stopPropagation();
-      fetch(`https://api.green-api.com/waInstance${id}/sendMessage/${token}`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            chatId: `${currentChat}@c.us`,
-            message: message,
-          }),
-        }
-      )
+      fetch(`https://api.green-api.com/waInstance${id}/sendMessage/${token}`, {
+        method: "POST",
+        body: JSON.stringify({
+          chatId: `${currentChat}@c.us`,
+          message: message,
+        }),
+      })
         .then((response) => response.json())
         .then(() => {
           setChats({
@@ -46,7 +46,7 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
         .catch((err) => console.log(err));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [chats, currentChat, id, message, setChats, token]
+    [chats, currentChat, id, message, setChats, token],
   );
   return (
     <div className="chatMessaging chatMessagingChatzone">

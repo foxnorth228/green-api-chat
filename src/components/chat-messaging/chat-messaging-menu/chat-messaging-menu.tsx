@@ -1,5 +1,6 @@
-import React from "react";
 import "./chat-messaging-menu.scss";
+
+import React from "react";
 
 interface IChatMessagingMenu {
   currentChat: string;
