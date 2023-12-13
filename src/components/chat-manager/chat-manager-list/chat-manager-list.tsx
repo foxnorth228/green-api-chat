@@ -17,10 +17,7 @@ export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
       e.preventDefault();
       e.stopPropagation();
       const num = Number(phoneNumber);
-      fetch(
-        `https://web-production-29546.up.railway.app/` +
-          `0.0.0.0:8080/` +
-          `https://api.green-api.com/waInstance${id}/checkWhatsapp/${token}`,
+      fetch(`https://api.green-api.com/waInstance${id}/checkWhatsapp/${token}`,
         {
           method: "POST",
           body: JSON.stringify({ phoneNumber: num }),

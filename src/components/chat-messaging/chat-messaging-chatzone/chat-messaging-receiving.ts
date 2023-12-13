@@ -8,17 +8,12 @@ const ChatMessagingReceiving = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       fetch(
-        `https://web-production-29546.up.railway.app/` +
-          `0.0.0.0:8080/` +
           `https://api.green-api.com/waInstance${id}/receiveNotification/${token}`
       )
         .then((response) => response.json())
         .then((data) => {
           if (data) {
-            fetch(
-              `https://web-production-29546.up.railway.app/` +
-                `0.0.0.0:8080/` +
-                `https://api.green-api.com/waInstance${id}/deleteNotification/${token}/${
+            fetch(`https://api.green-api.com/waInstance${id}/deleteNotification/${token}/${
                   data!.receiptId
                 }`,
               { method: "DELETE" }

@@ -15,7 +15,7 @@ const Auth = () => {
       e.preventDefault();
       e.stopPropagation();
       fetch(
-        `https://web-production-29546.up.railway.app/0.0.0.0:8080/https://api.green-api.com/waInstance${instanse}/getStateInstance/${loginToken}`
+        `https://api.green-api.com/waInstance${instanse}/getStateInstance/${loginToken}`
       )
         .then((result) => {
           if (result.status === 401) {

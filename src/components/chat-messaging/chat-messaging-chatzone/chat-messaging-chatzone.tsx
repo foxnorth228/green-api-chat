@@ -26,10 +26,7 @@ export const ChatMessagingChatzone = ({ currentChat }: IChatManagerList) => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       e.stopPropagation();
-      fetch(
-        `https://web-production-29546.up.railway.app/` +
-          `0.0.0.0:8080/` +
-          `https://api.green-api.com/waInstance${id}/sendMessage/${token}`,
+      fetch(`https://api.green-api.com/waInstance${id}/sendMessage/${token}`,
         {
           method: "POST",
           body: JSON.stringify({
