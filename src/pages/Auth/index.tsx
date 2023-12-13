@@ -1,6 +1,6 @@
-import "./auth.scss";
+import "./style.scss";
 
-import useRedirectAuthUser from "@src/hooks/use-redirect-auth-user";
+import useRedirectAuthUser from "@hooks/useRedirectAuthUser";
 import { useUserId, useUserToken } from "@store/userSlice/hooks";
 import React, { useCallback, useState } from "react";
 

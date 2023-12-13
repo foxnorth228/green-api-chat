@@ -1,7 +1,7 @@
 import App from "@pages/App";
-import Auth from "@pages/auth/auth";
-import Chat from "@pages/chat/chat";
-import ErrorPage from "@pages/error-page/error-page";
+import Auth from "@pages/Auth";
+import Chat from "@pages/Chat";
+import ErrorPage from "@pages/Error";
 import React from "react";
 
 const config = {

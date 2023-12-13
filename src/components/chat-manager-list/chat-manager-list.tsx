@@ -1,6 +1,6 @@
 import "./chat-manager-list.scss";
 
-import useRedirectUnauthUser from "@src/hooks/use-redirect-unauth-user";
+import useRedirectUnauthUser from "@hooks/useRedirectUnauthUser";
 import { useChats, useChatsAddChat } from "@store/chatsSlice/hooks";
 import { useUserData } from "@store/userSlice/hooks";
 import React, { useCallback, useState } from "react";
