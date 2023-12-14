@@ -1,7 +1,8 @@
-import { RootState } from "@src/store";
+import { RootState, StoreDispatch } from "@src/store";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setId, setToken } from "./";
+import { getUserStatus } from "@store/userSlice/api";
 
 export const useUserData = (): [string, string] => {
   const user = useSelector((state: RootState) => state.user);
@@ -20,4 +21,8 @@ export const useUserToken = (): [string, (token: string) => unknown] => {
   return [token, (token: string) => dispatch(setToken(token))];
 };
 
-//export const useGetUserStatus
+export const useGetUserStatus = () => {
+  const dispatch = useDispatch<StoreDispatch>();
+  return async (id: string, token: string) =>
+    await dispatch(getUserStatus({ id, token }));
+};

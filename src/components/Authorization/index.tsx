@@ -1,76 +1,83 @@
 import "./style.scss";
 
 import useRedirectAuthUser from "@hooks/useRedirectAuthUser";
-import { StoreDispatch } from "@src/store";
-import { getUserStatus } from "@store/userSlice/api";
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useGetUserStatus } from "@store/userSlice/hooks";
+import config from "./config";
 
 const Authorization = () => {
   useRedirectAuthUser();
 
-  const dispatch = useDispatch<StoreDispatch>();
-  const [instance, setInstance] = useState("");
-  const [loginToken, setLoginToken] = useState("");
+  const getUserStatus = useGetUserStatus();
+  const [id, setId] = useState("");
+  const [token, setToken] = useState("");
   const [messageErrorInput, setMessageErrorInput] = useState("");
 
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      e.stopPropagation();
-      const result = await dispatch(
-        getUserStatus({ id: instance, token: loginToken }),
-      );
-      if (typeof result.payload === "boolean" && result.payload) {
-        setInstance("");
-        setLoginToken("");
-      } else if (typeof result.payload === "string") {
-        setMessageErrorInput(result.payload);
-      } else if (result.payload instanceof Error) {
-        setMessageErrorInput(result.payload.message);
+      const { payload } = await getUserStatus(id, token);
+      if (typeof payload === "boolean" && payload) {
+        setId("");
+        setToken("");
+      } else if (typeof payload === "string") {
+        setMessageErrorInput(payload);
+      } else if (payload instanceof Error) {
+        setMessageErrorInput(payload.message);
       }
     },
-    [dispatch, instance, loginToken],
+    [getUserStatus, id, token],
   );
+
+  const onClickResetError = useCallback(() => {
+    setMessageErrorInput("");
+  }, []);
+
+  const onChangeSetId = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setId(e.currentTarget.value);
+    },
+    [],
+  );
+  const onChangeSetToken = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setToken(e.currentTarget.value);
+    },
+    [],
+  );
+
   return (
     <>
       {messageErrorInput !== "" ? (
-        <div
-          className="auth"
-          onClick={() => {
-            setMessageErrorInput("");
-          }}
-        >
-          <p>Your input has some problem</p>
-          <p>{messageErrorInput}</p>
-          <p>Click this block to return to authorization</p>
+        <div className="authorization" onClick={onClickResetError}>
+          <p className="authorization__errorDesc">{config.errorMessage1}</p>
+          <p className="authorization__errorDesc">{messageErrorInput}</p>
+          <p className="authorization__errorDesc">{config.errorMessage2}</p>
         </div>
       ) : (
-        <form onSubmit={onSubmit} className="auth">
-          <label className="auth__inputblock">
-            Идентификатор
+        <form onSubmit={onSubmit} className="authorization">
+          <label className="authorization__inputBlock">
+            {config.labelIdTitle}
             <input
-              name="id"
+              name={config.inputIdName}
               type="text"
-              value={instance}
-              onChange={(e) => {
-                setInstance(e.currentTarget.value);
-              }}
+              className="authorization__input"
+              value={id}
+              onChange={onChangeSetId}
             />
           </label>
-          <label className="auth__inputblock">
-            Токен
+          <label className="authorization__inputBlock">
+            {config.labelTokenTitle}
             <input
-              name="token"
-              value={loginToken}
-              onChange={(e) => {
-                setLoginToken(e.currentTarget.value);
-              }}
+              name={config.inputTokenName}
               type="text"
+              className="authorization__input"
+              value={token}
+              onChange={onChangeSetToken}
             />
           </label>
-          <button className="auth__submitbutton" type="submit">
-            Войти
+          <button className="authorization__submitButton" type="submit">
+            {config.buttonSubmitTitle}
           </button>
         </form>
       )}

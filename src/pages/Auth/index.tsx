@@ -4,7 +4,11 @@ import React from "react";
 import Authorization from "@components/Authorization";
 
 const Auth = () => {
-  return <Authorization></Authorization>;
+  return (
+    <section className="auth">
+      <Authorization></Authorization>
+    </section>
+  );
 };
 
 export default Auth;

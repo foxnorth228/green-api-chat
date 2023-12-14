@@ -1,5 +1,8 @@
+import config from "./config";
+import { IGetStateInstanceData } from "@services/GreenApi/types";
+
 class GreenApi {
-  static host = "https://api.green-api.com/";
+  static host = config.host;
 
   id;
   token;
@@ -15,33 +18,34 @@ class GreenApi {
 
   static async getUserStatus(id: string, token: string) {
     const response: string | boolean | Error = await fetch(
-      GreenApi.getFullActionUrl("getStateInstance", id, token),
+      GreenApi.getFullActionUrl(config.actionGetUserState, id, token),
     )
       .then((result) => {
         if (result.status === 401) {
-          return Promise.reject("Your token is incorrect");
+          return Promise.reject(config.messageErrorWrongToken);
         } else if (result.status === 403) {
-          return Promise.reject("Your ID is incorrect");
+          return Promise.reject(config.messageErrorWrongID);
         } else if (result.status > 399) {
           return Promise.reject(
-            "Something went wrong. " + result.status + " " + result.statusText,
+            `${config.messageError} ${result.status} ${result.statusText}`,
           );
         }
         return result.json();
       })
-      .then((data) => {
+      .then((data: IGetStateInstanceData) => {
         const acceptState = ["authorized", "sleepMode", "starting"];
         if (!acceptState.includes(data!.stateInstance as string)) {
-          Promise.reject("This account isn't authorized or got banned");
+          Promise.reject(config.messageErrorBadAccount);
         }
         return true;
       })
       .catch((err) => {
-        if (
-          err instanceof Error ||
-          err instanceof Promise ||
-          typeof err === "string"
-        ) {
+        if (err instanceof Error) {
+          if (err.message === config.CORSFailedFetch) {
+            return config.messageErrorWrongID;
+          }
+          return err.message;
+        } else if (err instanceof Promise || typeof err === "string") {
           return err;
         }
       });

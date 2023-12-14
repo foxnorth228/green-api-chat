@@ -1,21 +1,91 @@
-.auth {
+.authorization {
   position: relative;
   z-index: 1;
-  background-color: #f0f2f5;
-  width: 40%;
-  height: 200px;
-  min-width: 300px;
+  background-color: #f4f4f5;
+  width: max-content;
+  min-width: 35%;
+  min-height: 25%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 1.1rem;
+  @media screen and (max-width: 767px) {
+    font-size: 1.25rem;
+  }
 }
 
-.auth__inputblock {
+.authorization__inputBlock {
   display: flex;
   justify-content: space-between;
-  max-width: 350px;
   width: 80%;
-  min-width: 280px;
+  min-width: 24rem;
+  padding: 0 1rem;
+  @media screen and (max-width: 767px) {
+    margin: 1rem 0;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+  }
+  @media screen and (max-width: 360px) {
+    width: 100vw;
+    min-width: 0;
+  }
+}
+
+.authorization__input {
+  width: 12rem;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.authorization__errorDesc {
+  text-align: center;
+  padding: 0 1rem;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: red;
+}
+
+.authorization__submitButton {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #00a884;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: inherit;
+  outline: none;
+  overflow: hidden;
+  padding: 0.6rem 1rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+  &:hover {
+    background-color: #1e8449;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+  }
+  &:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+  }
+  &:hover {
+    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+  }
 }
