@@ -19,3 +19,5 @@ export const useUserToken = (): [string, (token: string) => unknown] => {
   const dispatch = useDispatch();
   return [token, (token: string) => dispatch(setToken(token))];
 };
+
+//export const useGetUserStatus
