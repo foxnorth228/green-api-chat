@@ -1,8 +1,8 @@
 import { RootState, StoreDispatch } from "@src/store";
+import { getUserStatus } from "@store/userSlice/api";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setId, setToken } from "./";
-import { getUserStatus } from "@store/userSlice/api";
 
 export const useUserData = (): [string, string] => {
   const user = useSelector((state: RootState) => state.user);
@@ -19,10 +19,6 @@ export const useUserToken = (): [string, (token: string) => unknown] => {
   const token = useSelector((state: RootState) => state.user.token);
   const dispatch = useDispatch();
   return [token, (token: string) => dispatch(setToken(token))];
-};
-
-export const useUserService = () => {
-  return useSelector((state: RootState) => state.user.greenApi);
 };
 
 export const useGetUserStatus = () => {

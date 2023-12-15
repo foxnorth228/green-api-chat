@@ -1,8 +1,9 @@
 import "./chat-manager-list.scss";
 
 import useRedirectUnauthUser from "@hooks/useRedirectUnauthUser";
+import globalConfig from "@src/config";
 import { useChats, useChatsAddChat } from "@store/chatsSlice/hooks";
-import { useUserData, useUserService } from "@store/userSlice/hooks";
+import { useUserData } from "@store/userSlice/hooks";
 import React, { useCallback, useState } from "react";
 
 interface IChatManagerList {
@@ -10,7 +11,6 @@ interface IChatManagerList {
 }
 export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
   useRedirectUnauthUser();
-  const service = useUserService();
   const [id, token] = useUserData();
   const chats = useChats();
   const addChat = useChatsAddChat();
@@ -19,7 +19,7 @@ export const ChatManagerList = ({ setCurrentChat }: IChatManagerList) => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       e.stopPropagation();
-      service?.getContactInfo(phoneNumber);
+      globalConfig.service?.getContactInfo(phoneNumber);
       const num = Number(phoneNumber);
       fetch(
         `https://api.green-api.com/waInstance${id}/checkWhatsapp/${token}`,

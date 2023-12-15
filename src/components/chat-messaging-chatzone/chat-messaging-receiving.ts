@@ -1,7 +1,6 @@
-
+import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
 import { useUserData } from "@store/userSlice/hooks";
 import { useEffect } from "react";
-import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
 
 const ChatMessagingReceiving = () => {
   const chats = useChats();

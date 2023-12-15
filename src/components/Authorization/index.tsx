@@ -1,8 +1,9 @@
 import "./style.scss";
 
 import useRedirectAuthUser from "@hooks/useRedirectAuthUser";
-import React, { useCallback, useState } from "react";
 import { useGetUserStatus } from "@store/userSlice/hooks";
+import React, { useCallback, useState } from "react";
+
 import config from "./config";
 
 const Authorization = () => {

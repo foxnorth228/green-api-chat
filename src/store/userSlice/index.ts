@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import GreenApi from "@services/GreenApi";
+import globalConfig from "@src/config";
 import { getUserStatus } from "@store/userSlice/api";
 
 import config from "./config";
@@ -18,11 +19,14 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUserStatus.fulfilled, (state, action) => {
       if (typeof action.payload === "boolean" && action.payload) {
+        globalConfig.service = new GreenApi(
+          action.meta.arg.id,
+          action.meta.arg.token,
+        );
         return {
           ...state,
           id: action.meta.arg.id,
           token: action.meta.arg.token,
-          greenApi: new GreenApi(action.meta.arg.id, action.meta.arg.token),
         };
       }
       return state;

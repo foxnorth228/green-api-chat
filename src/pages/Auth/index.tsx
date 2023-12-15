@@ -1,7 +1,7 @@
 import "./style.scss";
 
-import React from "react";
 import Authorization from "@components/Authorization";
+import React from "react";
 
 const Auth = () => {
   return (

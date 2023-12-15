@@ -1,3 +1,7 @@
-const config = {};
+import GreenApi from "@services/GreenApi";
 
-export default config;
+const globalConfig = {
+  service: null as GreenApi | null,
+};
+
+export default globalConfig;
