@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import GreenApi from "@services/GreenApi";
 import { getUserStatus } from "@store/userSlice/api";
 
 import config from "./config";
@@ -21,6 +22,7 @@ const userSlice = createSlice({
           ...state,
           id: action.meta.arg.id,
           token: action.meta.arg.token,
+          greenApi: new GreenApi(action.meta.arg.id, action.meta.arg.token),
         };
       }
       return state;

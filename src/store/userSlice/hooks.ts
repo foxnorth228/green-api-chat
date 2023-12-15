@@ -21,6 +21,10 @@ export const useUserToken = (): [string, (token: string) => unknown] => {
   return [token, (token: string) => dispatch(setToken(token))];
 };
 
+export const useUserService = () => {
+  return useSelector((state: RootState) => state.user.greenApi);
+};
+
 export const useGetUserStatus = () => {
   const dispatch = useDispatch<StoreDispatch>();
   return async (id: string, token: string) =>

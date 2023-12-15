@@ -6,6 +6,7 @@ const config = {
   initialState: {
     id: "",
     token: "",
+    greenApi: null,
   } as IUser,
 };
 

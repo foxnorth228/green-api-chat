@@ -1,5 +1,6 @@
-import config from "./config";
 import { IGetStateInstanceData } from "@services/GreenApi/types";
+
+import config from "./config";
 
 class GreenApi {
   static host = config.host;
@@ -50,6 +51,18 @@ class GreenApi {
         }
       });
     return response;
+  }
+
+  async getContactInfo(phone: string) {
+    return await fetch(this.getFullActionUrl(config.actionGetContactInfo), {
+      method: "POST",
+      body: JSON.stringify({ chatId: `${phone}${config.chatId}` }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
   }
 }
 
