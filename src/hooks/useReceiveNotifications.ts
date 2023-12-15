@@ -2,7 +2,8 @@ import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
 import { useUserData } from "@store/userSlice/hooks";
 import { useEffect } from "react";
 
-const ChatMessagingReceiving = () => {
+// change to setTimeout
+const UseReceiveNotifications = () => {
   const chats = useChats();
   const addMessage = useChatsAddMessage();
   const [id, token] = useUserData();
@@ -39,4 +40,4 @@ const ChatMessagingReceiving = () => {
   });
 };
 
-export default ChatMessagingReceiving;
+export default UseReceiveNotifications;

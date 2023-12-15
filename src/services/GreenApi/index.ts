@@ -80,7 +80,7 @@ class GreenApi {
   async getContactInfo(phone: string) {
     return await fetch(this.getFullActionUrl(config.actionGetContactInfo), {
       method: "POST",
-      body: JSON.stringify({ chatId: `${phone}${config.chatId}` }),
+      body: JSON.stringify({ chatId: `${phone}${config.postfixId}` }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -88,6 +88,29 @@ class GreenApi {
       })
       .catch((err) => console.log(err));
   }
+
+  async sendMessage(phone: string, message: string) {
+    return await fetch(this.getFullActionUrl(config.actionSendMessage), {
+      method: "POST",
+      body: JSON.stringify({
+        chatId: `${phone}${config.postfixId}`,
+        message: message,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data: object) => data)
+      .catch((err) => {
+        console.log(err);
+        if (typeof err === "string") {
+          return err;
+        } else if (err instanceof Error) {
+          return err.message;
+        }
+        return "";
+      });
+  }
+
+  async receiveMessage() {}
 }
 
 export default GreenApi;

@@ -3,12 +3,13 @@ const config = {
   actionGetUserState: "getStateInstance",
   actionGetContactInfo: "getContactInfo",
   actionCheckIsWhatsappExist: "checkWhatsapp",
+  actionSendMessage: "sendMessage",
   messageError: "Something went wrong.",
   messageErrorWrongID: "Your ID is incorrect",
   messageErrorWrongToken: "Your token is incorrect",
   messageErrorBadAccount: "This account isn't authorized or got banned",
   CORSFailedFetch: "Failed to fetch",
-  chatId: "@c.us",
+  postfixId: "@c.us",
 };
 
 export default config;

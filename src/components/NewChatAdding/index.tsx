@@ -19,10 +19,10 @@ const NewChatAdding = () => {
         await globalConfig.service?.checkIfWhatsappExist(phoneNumber);
       if (typeof result === "boolean" && result) {
         addChat(phoneNumber);
-        setPhoneNumber("");
       } else if (typeof result === "string") {
         throw result;
       }
+      setPhoneNumber("");
     },
     [addChat, phoneNumber],
   );
@@ -36,10 +36,10 @@ const NewChatAdding = () => {
   return (
     <form className="newChatAdding" onSubmit={onSubmit}>
       <input
-        name="phone"
+        name={config.inputPhoneName}
         className="newChatAdding__inputPhone"
         type="tel"
-        placeholder="Phone number..."
+        placeholder={config.inputPhonePlaceholder}
         required={true}
         pattern="[0-9]{11,12}"
         title={config.tooltipText}

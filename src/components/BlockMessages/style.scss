@@ -1,0 +1,17 @@
+.chatMessagingChatzone__messages {
+  width: 100%;
+  height: calc(100% - 60px);
+  flex-direction: column;
+  display: flex;
+  justify-content: end;
+}
+
+.chatMessagingChatzone__message {
+  word-wrap: break-word;
+  padding: 10px;
+  width: fit-content;
+  max-width: 300px;
+  min-height: 20px;
+  height: fit-content;
+  margin: 8px;
+}
