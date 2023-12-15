@@ -23,8 +23,6 @@ const Authorization = () => {
         setToken("");
       } else if (typeof payload === "string") {
         setMessageErrorInput(payload);
-      } else if (payload instanceof Error) {
-        setMessageErrorInput(payload.message);
       }
     },
     [getUserStatus, id, token],
@@ -65,6 +63,7 @@ const Authorization = () => {
               className="authorization__input"
               value={id}
               onChange={onChangeSetId}
+              required={true}
             />
           </label>
           <label className="authorization__inputBlock">
@@ -75,6 +74,7 @@ const Authorization = () => {
               className="authorization__input"
               value={token}
               onChange={onChangeSetToken}
+              required={true}
             />
           </label>
           <button className="authorization__submitButton" type="submit">

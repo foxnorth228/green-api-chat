@@ -7,3 +7,7 @@ export interface IGetStateInstanceData {
     | "starting"
     | "yellowCard";
 }
+
+export interface ICheckIfWhatsappExist {
+  existsWhatsapp: boolean;
+}

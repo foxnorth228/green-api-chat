@@ -1,4 +1,7 @@
-import { IGetStateInstanceData } from "@services/GreenApi/types";
+import {
+  ICheckIfWhatsappExist,
+  IGetStateInstanceData,
+} from "@services/GreenApi/types";
 
 import config from "./config";
 
@@ -17,8 +20,8 @@ class GreenApi {
     this.token = token;
   }
 
-  static async getUserStatus(id: string, token: string) {
-    const response: string | boolean | Error = await fetch(
+  static async checkIsUserExist(id: string, token: string) {
+    return await fetch(
       GreenApi.getFullActionUrl(config.actionGetUserState, id, token),
     )
       .then((result) => {
@@ -46,11 +49,32 @@ class GreenApi {
             return config.messageErrorWrongID;
           }
           return err.message;
-        } else if (err instanceof Promise || typeof err === "string") {
+        } else if (typeof err === "string") {
           return err;
         }
+        return false;
       });
-    return response;
+  }
+
+  async checkIfWhatsappExist(phone: string) {
+    return await fetch(
+      this.getFullActionUrl(config.actionCheckIsWhatsappExist),
+      {
+        method: "POST",
+        body: JSON.stringify({ phoneNumber: phone }),
+      },
+    )
+      .then((response) => response.json())
+      .then((data: ICheckIfWhatsappExist) => data.existsWhatsapp)
+      .catch((err) => {
+        console.log(err);
+        if (err instanceof Error) {
+          return err.message;
+        } else if (typeof err === "string") {
+          return err;
+        }
+        return false;
+      });
   }
 
   async getContactInfo(phone: string) {

@@ -4,6 +4,6 @@ import GreenApi from "@services/GreenApi";
 export const getUserStatus = createAsyncThunk(
   "greenApi/getUserStatus",
   async ({ id, token }: { id: string; token: string }) => {
-    return await GreenApi.getUserStatus(id, token);
+    return await GreenApi.checkIsUserExist(id, token);
   },
 );
