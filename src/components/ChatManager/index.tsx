@@ -4,14 +4,11 @@ import ChatList from "@components/ChatList";
 import NewChatAdding from "@components/NewChatAdding";
 import React from "react";
 
-interface IChatManagerList {
-  chat: string;
-  setCurrentChat: React.Dispatch<React.SetStateAction<string>>;
-}
+import { IChatManager } from "./types";
 
-export const ChatManager = ({ chat, setCurrentChat }: IChatManagerList) => {
+export const ChatManager = ({ chat, setCurrentChat }: IChatManager) => {
   return (
-    <div className="chatManagerList">
+    <div className="chatManager">
       <NewChatAdding />
       <ChatList chat={chat} setCurrentChat={setCurrentChat} />
     </div>

@@ -3,10 +3,7 @@ import "./style.scss";
 import { useChats } from "@store/chatsSlice/hooks";
 import React from "react";
 
-interface IChatList {
-  chat: string;
-  setCurrentChat: React.Dispatch<React.SetStateAction<string>>;
-}
+import { IChatList } from "./types";
 
 const ChatList = ({ chat, setCurrentChat }: IChatList) => {
   const chats = useChats();
@@ -17,7 +14,7 @@ const ChatList = ({ chat, setCurrentChat }: IChatList) => {
         <div
           key={el}
           className={`chatList__elem ${
-            el === chat ? "chatList__elem_selected" : ""
+            el === chat && "chatList__elem_selected"
           }`}
           onClick={() => {
             setCurrentChat(el);

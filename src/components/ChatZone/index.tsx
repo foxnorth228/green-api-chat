@@ -16,7 +16,7 @@ export const ChatZone = ({ currentChat }: IChatZone) => {
   );
 
   return (
-    <div className="chatMessaging chatMessagingChatzone">
+    <div className="chatZone">
       {currentChat !== "" && (
         <>
           <BlockMessages messages={messages} />

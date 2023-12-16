@@ -1,3 +1,3 @@
-export interface IInputMessage {
+export interface ISubmitMessage {
   currentChat: string;
 }

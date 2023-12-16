@@ -1,6 +1,7 @@
 import {
   ICheckIfWhatsappExist,
   IGetStateInstanceData,
+  IReceiveNotification,
 } from "@services/GreenApi/types";
 
 import config from "./config";
@@ -110,7 +111,38 @@ class GreenApi {
       });
   }
 
-  async receiveMessage() {}
+  async receiveNotification() {
+    return await fetch(this.getFullActionUrl(config.actionReceiveNotification))
+      .then((response) => response.json())
+      .then((data: IReceiveNotification) => data)
+      .catch((err) => {
+        console.log(err);
+        if (typeof err === "string") {
+          return err;
+        } else if (err instanceof Error) {
+          return err.message;
+        }
+        return "";
+      });
+  }
+
+  async deleteNotification(id: string) {
+    return await fetch(
+      `${this.getFullActionUrl(config.actionDeleteNotification)}/${id}`,
+      { method: "DELETE" },
+    )
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((err) => {
+        console.log(err);
+        if (typeof err === "string") {
+          return err;
+        } else if (err instanceof Error) {
+          return err.message;
+        }
+        return "";
+      });
+  }
 }
 
 export default GreenApi;

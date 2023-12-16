@@ -2,9 +2,9 @@ import "./style.scss";
 
 import React from "react";
 
-import { IChatMessagingMenu } from "./types";
+import { ISelectedMenu } from "./types";
 
-export const SelectedChat = ({ currentChat }: IChatMessagingMenu) => {
+export const SelectedChat = ({ currentChat }: ISelectedMenu) => {
   return (
     <div className="selectedChat">
       <p className="selectedChat__title">{currentChat}</p>

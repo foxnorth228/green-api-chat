@@ -1,9 +1,12 @@
-import { IInputMessage } from "@components/SubmitMessage/types";
+import "./style.scss";
+
+import config from "@components/SubmitMessage/config";
+import { ISubmitMessage } from "@components/SubmitMessage/types";
 import globalConfig from "@src/config";
 import { useChatsAddMessage } from "@store/chatsSlice/hooks";
 import React, { useCallback, useState } from "react";
 
-const SubmitMessage = ({ currentChat }: IInputMessage) => {
+const SubmitMessage = ({ currentChat }: ISubmitMessage) => {
   const addMessage = useChatsAddMessage();
   const [message, setMessage] = useState("");
 
@@ -26,20 +29,27 @@ const SubmitMessage = ({ currentChat }: IInputMessage) => {
     },
     [addMessage, currentChat, message],
   );
+
+  const onChangeMessage = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setMessage(e.currentTarget.value);
+    },
+    [],
+  );
+
   return (
-    <form onSubmit={onSubmit} className="chatMessagingChatzone__messaging">
+    <form onSubmit={onSubmit} className="submitMessage">
       <input
         type="text"
-        name="message"
+        name={config.inputMessageName}
         value={message}
-        placeholder="Message..."
-        className="chatMessagingChatzone__messageinput"
-        onChange={(e) => {
-          setMessage(e.currentTarget.value);
-        }}
+        placeholder={config.inputMessagePlaceholder}
+        className="submitMessage__input"
+        required={true}
+        onChange={onChangeMessage}
       />
-      <button className="chatMessagingChatzone__submit" type="submit">
-        Send
+      <button className="submitMessage__buttonSubmit" type="submit">
+        {config.buttonSubmitTitle}
       </button>
     </form>
   );

@@ -1,3 +1,3 @@
-export interface IChatMessagingMenu {
+export interface ISelectedMenu {
   currentChat: string;
 }

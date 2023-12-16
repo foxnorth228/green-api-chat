@@ -1,41 +1,48 @@
+import config from "@src/config";
 import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
-import { useUserData } from "@store/userSlice/hooks";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
-// change to setTimeout
 const UseReceiveNotifications = () => {
   const chats = useChats();
   const addMessage = useChatsAddMessage();
-  const [id, token] = useUserData();
+  const receiveNotification = useCallback(async () => {
+    if (config.service === null) {
+      return;
+    }
+    const result = await config.service?.receiveNotification();
+    if (typeof result === "string") {
+      throw result;
+    }
+    console.log(result);
+    if (
+      !result ||
+      !result.receiptId ||
+      typeof result.receiptId === "undefined"
+    ) {
+      return;
+    }
+    await config.service?.deleteNotification(result.receiptId);
+    const body = result.body;
+    const sender = String(parseInt(body?.senderData?.chatId ?? ""));
+    const typeMessage = body?.messageData?.typeMessage;
+    if (typeMessage && typeMessage === "textMessage" && sender in chats) {
+      addMessage(sender, {
+        isUserOwner: false,
+        message: body?.messageData?.textMessageData?.textMessage ?? "",
+      });
+    }
+  }, [addMessage, chats]);
   useEffect(() => {
-    const timer = setInterval(() => {
-      fetch(
-        `https://api.green-api.com/waInstance${id}/receiveNotification/${token}`,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data) {
-            fetch(
-              `https://api.green-api.com/waInstance${id}/deleteNotification/${token}/${
-                data!.receiptId
-              }`,
-              { method: "DELETE" },
-            );
-            const body = data!.body;
-            const sender = String(parseInt(body?.senderData?.sender));
-            const message: string =
-              body?.messageData?.textMessageData?.textMessage;
-            if (!sender || !message) {
-              return;
-            }
-            Object.entries(chats).find((el) => el[0] === sender);
-            addMessage(sender, { isUserOwner: false, message });
-          }
-        })
-        .catch((err) => console.log(err));
-    }, 5000);
+    let isCancelled = false;
+    async function callback() {
+      await receiveNotification();
+      if (!isCancelled) {
+        callback();
+      }
+    }
+    callback();
     return () => {
-      clearInterval(timer);
+      isCancelled = true;
     };
   });
 };

@@ -4,6 +4,8 @@ const config = {
   actionGetContactInfo: "getContactInfo",
   actionCheckIsWhatsappExist: "checkWhatsapp",
   actionSendMessage: "sendMessage",
+  actionReceiveNotification: "receiveNotification",
+  actionDeleteNotification: "deleteNotification",
   messageError: "Something went wrong.",
   messageErrorWrongID: "Your ID is incorrect",
   messageErrorWrongToken: "Your token is incorrect",
