@@ -15,6 +15,7 @@ export interface ICheckIfWhatsappExist {
 export interface IReceiveNotification {
   receiptId?: string;
   body: {
+    timestamp?: number;
     senderData?: {
       chatId?: string;
     };

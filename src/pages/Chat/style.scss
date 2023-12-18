@@ -9,4 +9,8 @@
     display: grid;
     grid-template-columns: minmax(300px, 25%) min(75%, calc(100% - 300px));
     grid-template-rows: 3rem 1fr;
+    @media screen and (max-width: 1280px) {
+        width: 100vw;
+        height: 100vh;
+    }
 }
