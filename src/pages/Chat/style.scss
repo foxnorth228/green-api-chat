@@ -1,4 +1,6 @@
 .chat {
+    --min-width-first-column: 300px;
+    --menu-chat-height: 3rem;
     position: relative;
     z-index: 100;
     width: calc(100vw - 2rem);
@@ -7,10 +9,85 @@
     height: calc(100vh - 2rem);
     background-color: #f0f2f5;
     display: grid;
-    grid-template-columns: minmax(300px, 25%) min(75%, calc(100% - 300px));
-    grid-template-rows: 3rem 1fr;
+    grid-template-columns: minmax(var(--min-width-first-column), 25%) 1fr;
+    grid-template-rows: var(--menu-chat-height) 1fr;
     @media screen and (max-width: 1280px) {
         width: 100vw;
         height: 100vh;
+        --min-width-first-column: 230px;
     }
+    @media screen and (max-width: 767px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.chat__menu_mobile {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+div.interactElem {
+    height: calc(100vh - var(--menu-chat-height));
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.7s linear;
+    z-index: 5;
+    width: auto;
+}
+
+.menu__toggle {
+    display: none;
+}
+
+.menu__toggle:checked + .menu__btn > span {
+    transform: rotate(45deg);
+}
+.menu__toggle:checked + .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0);
+}
+.menu__toggle:checked + .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+#menu__toggle:checked ~ .interactElem {
+    transform: translateX(0);
+}
+
+.menu__btn {
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    margin: 0 1rem;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    z-index: 6;
+    transform: translateX(0);
+}
+
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    transition-duration: .25s;
+}
+.menu__btn > span::before {
+    content: '';
+    top: -8px;
+}
+.menu__btn > span::after {
+    content: '';
+    top: 8px;
 }

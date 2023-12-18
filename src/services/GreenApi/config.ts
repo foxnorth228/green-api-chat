@@ -10,6 +10,7 @@ const config = {
   messageErrorWrongID: "Your ID is incorrect",
   messageErrorWrongToken: "Your token is incorrect",
   messageErrorBadAccount: "This account isn't authorized or got banned",
+  messageErrorWrongData: "This account isn't exist or you send incorrect data",
   CORSFailedFetch: "Failed to fetch",
   postfixId: "@c.us",
 };

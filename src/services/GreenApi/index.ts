@@ -26,7 +26,9 @@ class GreenApi {
       GreenApi.getFullActionUrl(config.actionGetUserState, id, token),
     )
       .then((result) => {
-        if (result.status === 401) {
+        if (result.status === 400) {
+          return Promise.reject(config.messageErrorWrongData);
+        } else if (result.status === 401) {
           return Promise.reject(config.messageErrorWrongToken);
         } else if (result.status === 403) {
           return Promise.reject(config.messageErrorWrongID);

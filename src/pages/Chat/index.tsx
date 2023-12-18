@@ -3,12 +3,14 @@ import "./style.scss";
 import { ChatManager } from "@components/ChatManager";
 import { ChatZone } from "@components/ChatZone";
 import { SelectedChat } from "@components/SelectedChat";
+import useMatchMedia from "@hooks/useMatchMedia";
 import useRedirectUnauthUser from "@hooks/useRedirectUnauthUser";
 import config from "@src/config";
 import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
 import React, { useCallback, useLayoutEffect, useState } from "react";
 
 const Chat = () => {
+  const isMatches = useMatchMedia("(max-width: 767px)");
   useRedirectUnauthUser();
   const chats = useChats();
   const addMessage = useChatsAddMessage();
@@ -57,10 +59,38 @@ const Chat = () => {
   const [currentChat, setCurrentChat] = useState("");
   return (
     <main className="chat">
-      <div></div>
-      <SelectedChat currentChat={currentChat} />
-      <ChatManager chat={currentChat} setCurrentChat={setCurrentChat} />
-      <ChatZone currentChat={currentChat} />
+      {isMatches ? (
+        <>
+          <div className="chat__menu_mobile">
+            <input
+              id="menu__toggle"
+              type="checkbox"
+              className="menu__toggle"
+            ></input>
+            <label htmlFor="menu__toggle" className="menu__btn">
+              <span></span>
+            </label>
+            <SelectedChat currentChat={currentChat} />
+            <ChatManager
+              className="interactElem"
+              chat={currentChat}
+              setCurrentChat={setCurrentChat}
+            />
+          </div>
+          <ChatZone currentChat={currentChat} />
+        </>
+      ) : (
+        <>
+          <div></div>
+          <SelectedChat currentChat={currentChat} />
+          <ChatManager
+            className=""
+            chat={currentChat}
+            setCurrentChat={setCurrentChat}
+          />
+          <ChatZone currentChat={currentChat} />
+        </>
+      )}
     </main>
   );
 };

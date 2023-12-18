@@ -6,9 +6,13 @@ import React from "react";
 
 import { IChatManager } from "./types";
 
-export const ChatManager = ({ chat, setCurrentChat }: IChatManager) => {
+export const ChatManager = ({
+  className,
+  chat,
+  setCurrentChat,
+}: IChatManager) => {
   return (
-    <div className="chatManager">
+    <div className={`chatManager ${className}`}>
       <NewChatAdding />
       <ChatList chat={chat} setCurrentChat={setCurrentChat} />
     </div>
