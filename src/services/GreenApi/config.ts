@@ -1,5 +1,6 @@
 const config = {
   host: "https://api.green-api.com/",
+  fakeHost: "https://greenapiafdsagadgsgfgfddafsagsdadgs.com/",
   actionGetUserState: "getStateInstance",
   actionGetContactInfo: "getContactInfo",
   actionCheckIsWhatsappExist: "checkWhatsapp",
@@ -11,7 +12,7 @@ const config = {
   messageErrorWrongToken: "Your token is incorrect",
   messageErrorBadAccount: "This account isn't authorized or got banned",
   messageErrorWrongData: "This account isn't exist or you send incorrect data",
-  CORSFailedFetch: "Failed to fetch",
+  errorFailedFetch: "Failed to fetch",
   postfixId: "@c.us",
 };
 

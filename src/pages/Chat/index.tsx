@@ -2,12 +2,13 @@ import "./style.scss";
 
 import { ChatManager } from "@components/ChatManager";
 import { ChatZone } from "@components/ChatZone";
-import { SelectedChat } from "@components/SelectedChat";
+import { ChatMenu } from "@components/ChatMenu";
 import useMatchMedia from "@hooks/useMatchMedia";
 import useRedirectUnauthUser from "@hooks/useRedirectUnauthUser";
-import config from "@src/config";
+import globalConfig from "@src/config";
 import { useChats, useChatsAddMessage } from "@store/chatsSlice/hooks";
 import React, { useCallback, useLayoutEffect, useState } from "react";
+import configApi from "@services/GreenApi/config";
 
 const Chat = () => {
   const isMatches = useMatchMedia("(max-width: 767px)");
@@ -15,11 +16,14 @@ const Chat = () => {
   const chats = useChats();
   const addMessage = useChatsAddMessage();
   const receiveNotification = useCallback(async () => {
-    if (config.service === null) {
-      return false;
+    if (globalConfig.service === null) {
+      return null;
     }
-    const result = await config.service?.receiveNotification();
+    const result = await globalConfig.service?.receiveNotification();
     if (typeof result === "string") {
+      if (result === configApi.errorFailedFetch) {
+        return false;
+      }
       throw result;
     }
     if (
@@ -29,7 +33,7 @@ const Chat = () => {
     ) {
       return true;
     }
-    await config.service?.deleteNotification(result.receiptId);
+    await globalConfig.service?.deleteNotification(result.receiptId);
     const body = result.body;
     const sender = String(parseInt(body?.senderData?.chatId ?? ""));
     const typeMessage = body?.messageData?.typeMessage;
@@ -45,9 +49,15 @@ const Chat = () => {
     let isCancelled = false;
     async function callback() {
       const isServiceWorks = await receiveNotification();
-      console.log(isServiceWorks);
-      if (!isCancelled && isServiceWorks) {
-        callback();
+      if (!isCancelled) {
+        if (isServiceWorks === null) {
+          return;
+        }
+        if (isServiceWorks) {
+          callback();
+        } else {
+          setTimeout(callback, 15000);
+        }
       }
     }
     callback();
@@ -70,7 +80,7 @@ const Chat = () => {
             <label htmlFor="menu__toggle" className="menu__btn">
               <span></span>
             </label>
-            <SelectedChat currentChat={currentChat} />
+            <ChatMenu currentChat={currentChat} />
             <ChatManager
               className="interactElem"
               chat={currentChat}
@@ -82,7 +92,7 @@ const Chat = () => {
       ) : (
         <>
           <div></div>
-          <SelectedChat currentChat={currentChat} />
+          <ChatMenu currentChat={currentChat} />
           <ChatManager
             className=""
             chat={currentChat}

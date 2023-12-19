@@ -31,3 +31,9 @@ export interface IReceiveNotification {
 export interface IDeleteNotificationResponse {
   result: boolean;
 }
+
+export interface IFailedRequest {
+  action: string;
+  method: string;
+  body?: string;
+}

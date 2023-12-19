@@ -5,6 +5,7 @@ import { ISubmitMessage } from "@components/SubmitMessage/types";
 import globalConfig from "@src/config";
 import { useChatsAddMessage } from "@store/chatsSlice/hooks";
 import React, { useCallback, useState } from "react";
+import configApi from "@services/GreenApi/config";
 
 const SubmitMessage = ({ currentChat }: ISubmitMessage) => {
   const addMessage = useChatsAddMessage();
@@ -20,7 +21,7 @@ const SubmitMessage = ({ currentChat }: ISubmitMessage) => {
         currentChat,
         message,
       );
-      if (typeof result === "object") {
+      if (typeof result === "object" || result === configApi.errorFailedFetch) {
         addMessage(currentChat, { isUserOwner: true, message });
       } else {
         throw result;
