@@ -79,6 +79,14 @@ https://github.com/foxnorth228/christmas-task
 
 ## Скриншоты
 
+![img.png](public/img.png)
+![img_1.png](public/img_1.png)
+![img_2.png](public/img_2.png)
+![img_3.png](public/img_3.png)
+![img_4.png](public/img_4.png)
+![img_5.png](public/img_5.png)
+![img_6.png](public/img_6.png)  
+p.s. два сообщения не баг, у меня просто ватсап на телефоне залагал, и я два сообщения отправил
 ## Остальное
 
 Протестировано с помощью PageSpeed Insights.  

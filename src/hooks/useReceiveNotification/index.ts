@@ -70,7 +70,6 @@ const useReceiveNotification = () => {
   useLayoutEffect(() => {
     let isCancelled = false;
     async function callback() {
-      console.log(isCancelled);
       const isServiceWorks = await checkServiceAndReceiveNotification();
       if (!isCancelled) {
         if (isServiceWorks === null) {

@@ -2,14 +2,14 @@
     font-family: 'Roboto';
     src: url('@assets/Roboto/Roboto-Regular.ttf');
     font-weight: 400;
-    font-display: auto;
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url('@assets/Roboto/Roboto-Bold.ttf');
     font-weight: 700;
-    font-display: auto;
+    font-display: swap;
 }
 
 html {
