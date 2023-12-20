@@ -1,11 +1,16 @@
 import "./style.scss";
 
 import config from "@components/NewChatAdding/config";
+import configApi from "@services/GreenApi/config";
 import globalConfig from "@src/config";
+import { StoreDispatch } from "@src/store";
 import { useChatsAddChat } from "@store/chatsSlice/hooks";
+import { getContactsInfo } from "@store/contactsSlice/api";
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const NewChatAdding = () => {
+  const dispatch = useDispatch<StoreDispatch>();
   const addChat = useChatsAddChat();
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -15,16 +20,20 @@ const NewChatAdding = () => {
       if (globalConfig.service === null) {
         return;
       }
+      setPhoneNumber("");
       const result: string | boolean =
         await globalConfig.service?.checkIfWhatsappExist(phoneNumber);
       if (typeof result === "boolean" && result) {
         addChat(phoneNumber);
+        dispatch(getContactsInfo(phoneNumber));
       } else if (typeof result === "string") {
+        if (result === configApi.errorFailedFetch) {
+          return;
+        }
         throw result;
       }
-      setPhoneNumber("");
     },
-    [addChat, phoneNumber],
+    [addChat, dispatch, phoneNumber],
   );
 
   const onChangeSetPhoneNumber = useCallback(

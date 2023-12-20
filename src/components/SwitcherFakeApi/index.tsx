@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
 import "./style.scss";
+
 import config from "@src/config";
+import React, { useCallback } from "react";
 
 const SwitcherFakeApi = () => {
   const switchFakeApi = useCallback(
@@ -11,8 +12,8 @@ const SwitcherFakeApi = () => {
   );
   return (
     <div>
-      <label>
-        use Fake api
+      <label className="switcherFakeApi__label">
+        Offline mode
         <input onChange={switchFakeApi} type="checkbox" />
       </label>
     </div>

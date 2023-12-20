@@ -18,6 +18,7 @@
     }
     @media screen and (max-width: 767px) {
         grid-template-columns: 1fr;
+        --min-width-first-column: 190px;
     }
 }
 
@@ -32,6 +33,7 @@
 }
 
 div.interactElem {
+    width: var(--min-width-first-column);
     height: calc(100vh - var(--menu-chat-height));
     position: absolute;
     top: 100%;
@@ -39,7 +41,6 @@ div.interactElem {
     transform: translateX(-100%);
     transition: transform 0.7s linear;
     z-index: 5;
-    width: auto;
 }
 
 .menu__toggle {

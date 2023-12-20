@@ -8,6 +8,11 @@ export interface IGetStateInstanceData {
     | "yellowCard";
 }
 
+export interface IGetContactInfo {
+  name: string;
+  avatar: string;
+}
+
 export interface ICheckIfWhatsappExist {
   existsWhatsapp: boolean;
 }
@@ -36,4 +41,5 @@ export interface IFailedRequest {
   action: string;
   method: string;
   body?: string;
+  sideEffect?: (arg: string | object | boolean) => void;
 }

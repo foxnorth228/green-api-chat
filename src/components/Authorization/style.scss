@@ -1,15 +1,14 @@
 .authorization {
-  position: relative;
-  z-index: 1;
-  background-color: #f4f4f5;
   width: max-content;
   min-width: 35%;
   min-height: 25%;
+  position: relative;
+  z-index: 1;
+  background-color: #f4f4f5;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  justify-items: center;
-  align-items: center;
+  place-items: center;
   font-family: 'Roboto', 'Arial', sans-serif;
   font-size: 1.1rem;
   @media screen and (max-width: 767px) {
@@ -18,11 +17,11 @@
 }
 
 .authorization__inputBlock {
-  display: flex;
-  justify-content: space-between;
   width: 80%;
   min-width: 24rem;
   padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
   @media screen and (max-width: 767px) {
     margin: 1rem 0;
     flex-direction: column;
@@ -42,8 +41,8 @@
 }
 
 .authorization__errorDesc {
-  text-align: center;
   padding: 0 1rem;
+  text-align: center;
   font-family: 'Roboto', 'Arial', sans-serif;
   font-weight: bold;
   font-size: 1.4rem;

@@ -9,10 +9,10 @@ import config from "./config";
 const Authorization = () => {
   useRedirectAuthUser();
 
-  const getUserStatus = useGetUserStatus();
   const [id, setId] = useState("");
   const [token, setToken] = useState("");
   const [messageErrorInput, setMessageErrorInput] = useState("");
+  const getUserStatus = useGetUserStatus();
 
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,5 +1,6 @@
 import {
-  ICheckIfWhatsappExist, IFailedRequest,
+  ICheckIfWhatsappExist,
+  IGetContactInfo,
   IGetStateInstanceData,
   IReceiveNotification,
 } from "@services/GreenApi/types";
@@ -11,7 +12,6 @@ class GreenApi {
 
   id;
   token;
-  failedRequests: IFailedRequest[];
   isUsingFakeApi;
   getFullActionUrl = (action: string, id = this.id, token = this.token) =>
     `${
@@ -23,7 +23,6 @@ class GreenApi {
   constructor(id: string, token: string) {
     this.id = id;
     this.token = token;
-    this.failedRequests = [];
     this.isUsingFakeApi = false;
   }
 
@@ -65,26 +64,20 @@ class GreenApi {
       });
   }
 
-  static async makeAction(
-    action: string,
-    id: string,
-    token: string,
-    method: string,
-    body?: string,
-  ) {
-    return await fetch(GreenApi.getFullActionUrl(action, id, token), {
+  async makeAction(action: string, method: string, body?: string) {
+    return await fetch(GreenApi.getFullActionUrl(action, this.id, this.token), {
       method,
       body: method === "GET" ? null : body,
     })
       .then((result) => result.json())
-      .then((data) => data)
+      .then((data: object) => data)
       .catch((err) => {
         if (err instanceof Error) {
           return err.message;
         } else if (typeof err === "string") {
           return err;
         }
-        return false;
+        return "";
       });
   }
 
@@ -105,6 +98,9 @@ class GreenApi {
       .catch((err) => {
         console.log(err);
         if (err instanceof Error) {
+          if (err.message === config.errorFailedFetch) {
+            return config.errorFailedFetch;
+          }
           return err.message;
         } else if (typeof err === "string") {
           return err;
@@ -119,10 +115,19 @@ class GreenApi {
       body: JSON.stringify({ chatId: `${phone}${config.postfixId}` }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => console.log(err));
+      .then((data: IGetContactInfo) => data)
+      .catch((err) => {
+        console.log(err);
+        if (typeof err === "string") {
+          return err;
+        } else if (err instanceof Error) {
+          if (err.message === config.errorFailedFetch) {
+            return config.errorFailedFetch;
+          }
+          return err.message;
+        }
+        return "";
+      });
   }
 
   async sendMessage(phone: string, message: string) {
@@ -141,15 +146,17 @@ class GreenApi {
           return err;
         } else if (err instanceof Error) {
           if (err.message === config.errorFailedFetch) {
-            this.failedRequests.push({
-              action: config.actionSendMessage,
-              method: "POST",
-              body: JSON.stringify({
-                chatId: `${phone}${config.postfixId}`,
-                message: message,
-              }),
-            });
-            return config.errorFailedFetch;
+            return {
+              message: config.errorFailedFetch,
+              fallbackObj: {
+                action: config.actionSendMessage,
+                method: "POST",
+                body: JSON.stringify({
+                  chatId: `${phone}${config.postfixId}`,
+                  message: message,
+                }),
+              },
+            };
           }
           return err.message;
         }
@@ -160,19 +167,23 @@ class GreenApi {
   async receiveNotification() {
     return await fetch(this.getFullActionUrl(config.actionReceiveNotification))
       .then(async (response) => {
-        if (this.failedRequests.length !== 0) {
-          for (let i = 0; i < this.failedRequests.length; ++i) {
-            const { action, method, body } = this.failedRequests[i];
-            await GreenApi.makeAction(
-              action,
-              this.id,
-              this.token,
-              method,
-              body,
-            );
-          }
-          this.failedRequests = [];
-        }
+        // while (this.failedRequests.length !== 0) {
+        //   const { action, method, body, sideEffect } = this.failedRequests[0];
+        //   const result = await GreenApi.makeAction(
+        //     action,
+        //     this.id,
+        //     this.token,
+        //     method,
+        //     body,
+        //   );
+        //   if (sideEffect) {
+        //     sideEffect(result);
+        //   }
+        //   if (typeof result === "string") {
+        //     break;
+        //   }
+        //   this.failedRequests.shift();
+        // }
         return response.json();
       })
       .then((data: IReceiveNotification) => data)

@@ -12,7 +12,7 @@
     font-display: auto;
 }
 
-html{
+html {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -77,8 +77,4 @@ body {
     min-height: 100vh;
     background-color: #eae6df;
     background-image: linear-gradient(180deg, #eae6df, #d1d7db);
-}
-
-.chatMessaging, .chatManager {
-    border: 1px solid #e9edef;
 }
