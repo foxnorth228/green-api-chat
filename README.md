@@ -58,7 +58,7 @@ https://github.com/foxnorth228/christmas-task
 * components - папка с основными компонентами
 * config - папка с глобальными статическими данными
 * hooks - папка с пользовательскими хуками
-* pages - папка со страницами. Т.к. сайт SPA, страницей стал только App
+* pages - папка со страницами.
 * routes - папка с данными для React Router
 * services - папка для работы с Green Api
 * store - папка с хранилищем Redux
