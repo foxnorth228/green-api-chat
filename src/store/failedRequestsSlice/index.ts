@@ -9,7 +9,7 @@ const failedRequestsSlice = createSlice({
     addFailedRequest: (state, action: PayloadAction<IFailedRequest>) => {
       return [...state, action.payload];
     },
-    changeFailedRequest: (state, action: PayloadAction<IFailedRequest[]>) => {
+    changeFailedRequest: (_, action: PayloadAction<IFailedRequest[]>) => {
       return action.payload;
     },
   },

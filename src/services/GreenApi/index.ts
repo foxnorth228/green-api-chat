@@ -166,26 +166,7 @@ class GreenApi {
 
   async receiveNotification() {
     return await fetch(this.getFullActionUrl(config.actionReceiveNotification))
-      .then(async (response) => {
-        // while (this.failedRequests.length !== 0) {
-        //   const { action, method, body, sideEffect } = this.failedRequests[0];
-        //   const result = await GreenApi.makeAction(
-        //     action,
-        //     this.id,
-        //     this.token,
-        //     method,
-        //     body,
-        //   );
-        //   if (sideEffect) {
-        //     sideEffect(result);
-        //   }
-        //   if (typeof result === "string") {
-        //     break;
-        //   }
-        //   this.failedRequests.shift();
-        // }
-        return response.json();
-      })
+      .then(async (response) => response.json())
       .then((data: IReceiveNotification) => data)
       .catch((err) => {
         console.log(err);

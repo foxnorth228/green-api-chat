@@ -7,11 +7,6 @@ export const useChats = () => {
   return useSelector((state: RootState) => state.chats);
 };
 
-export const useGetChat = () => {
-  const chats = useSelector((state: RootState) => state.chats);
-  return (phone: string) => chats[phone];
-};
-
 export const useChatsAddChat = () => {
   const dispatch = useDispatch();
   return (phone: string) => dispatch(addChat(phone));

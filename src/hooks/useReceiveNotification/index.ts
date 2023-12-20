@@ -9,11 +9,32 @@ import { useCallback, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 
 const useReceiveNotification = () => {
-  console.log("receive");
   const dispatch = useDispatch<StoreDispatch>();
   const failedReq = useFailedRequests();
   const chats = useChats();
   const addMessage = useChatsAddMessage();
+
+  const sendFailedRequests = useCallback(async () => {
+    if (globalConfig.service === null) {
+      return null;
+    }
+    const requests = [...failedReq];
+    while (requests.length !== 0) {
+      const { action, method, body } = requests[0];
+      const result = await globalConfig.service.makeAction(
+        action,
+        method,
+        body,
+      );
+      if (typeof result === "string") {
+        break;
+      }
+      requests.shift();
+    }
+    if (failedReq.length !== 0) {
+      dispatch(changeFailedRequest(requests));
+    }
+  }, [dispatch, failedReq]);
 
   const checkServiceAndReceiveNotification = useCallback(async () => {
     if (globalConfig.service === null) {
@@ -25,25 +46,6 @@ const useReceiveNotification = () => {
         return false;
       }
       throw result;
-    }
-    const requests = [...failedReq];
-    while (requests.length !== 0) {
-      const { action, method, body, sideEffect } = requests[0];
-      const result = await globalConfig.service.makeAction(
-        action,
-        method,
-        body,
-      );
-      if (typeof result === "string") {
-        break;
-      }
-      if (sideEffect) {
-        dispatch(sideEffect(result));
-      }
-      requests.shift();
-    }
-    if (failedReq.length !== 0) {
-      dispatch(changeFailedRequest(requests));
     }
     if (
       !result ||
@@ -63,7 +65,7 @@ const useReceiveNotification = () => {
       });
     }
     return true;
-  }, [addMessage, chats, dispatch, failedReq]);
+  }, [addMessage, chats]);
 
   useLayoutEffect(() => {
     let isCancelled = false;
@@ -75,6 +77,7 @@ const useReceiveNotification = () => {
           return;
         }
         if (isServiceWorks) {
+          sendFailedRequests();
           callback();
         } else {
           setTimeout(callback, config.delayBetweenCheckingService);
