@@ -1,22 +1,85 @@
-To install dependensies, use command: npm i   
-To start site locally, use command: npm run dev   
-To build site in production, use command: npm run build (because site use react-router, may exist some bugs, so you can check my deploy on Netlify)   
-Before starting you should check your instance setting if it can receive notifications https://green-api.com/docs/api/receiving/technology-http-api/   
-Deploy: https://master--thunderous-pothos-af6dd7.netlify.app/
+# Тестовое задание Whatsapp Чат
 
-My tecnology stack: react, typescript, react-router, scss, webpack. Also use eslint/prettier   
-To bypassing cors error i use my own deploy of cors-anywhere server on railway   
-How my site works: In login page you have to input your green-api idInstanse and apiTokenInstance. If id or token was incorrect, site process this error correctly. 
-After authorization you can add contact in input field. If contact isn't exist, site will not add phone number to contact list. If exist, will add. You can create multiple chats and 
-switch between them. Every chat has his own chat history. You can select chat clicking on interesting phone number in the list on the left. Sent messages are on the right with green background,
-received messages are on the left with white background.
+## Важно!
 
-Screens:   
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/9070e548-67cb-4650-b023-79ff22d5b5ee)
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/01405c57-48d7-41ea-8a16-8e10db1cd60d)
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/64d33842-29ee-4273-badb-de5b8ad5a19f)
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/988cd450-8eb7-4259-bb4e-eec2dc85f21b)
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/9c77db44-2eee-4abf-a211-eb0a0b8a138a)
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/9b27478e-db84-449d-abed-2a878f439f57)
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/7063ee3c-b72c-4dd8-a066-3537bd848ca2)
-![image](https://github.com/foxnorth228/green-api-chat/assets/102675886/5d143e33-af5d-4f03-9238-db3b0d7b9564)
+Для работы используется Green Api, позволяющий взаимодействовать с Whatsapp аккаунтом.
+Перед этим нужно зарегистрироваться и создать инстанс на самом сайте: https://green-api.com/docs/api/receiving/technology-http-api/
+Для тестов могу предложить свой инстанс, однако помните!!!: все сообщения, отправленные с помощью моих данных,
+будут видны мной лично в дальнейшем!
+Инстанс: 7103887540  
+Токен: e41f096ad7474e999e08dbb6ec82ba35088eeb4259274130a9
+
+## Функционал
+
+Пользователь вписывает свои Green Api данные (id и token). 
+Далее пользователь может добавить контакт для обмена сообщениями. 
+Если контакт имеет Whatsapp, контакт будет создан.
+Если имеется аватарка, она будет отображена. Если контакт имеет имя, оно будет отображено.
+Далее отправляются сообщения. Реализованы как отправка, так и получение. Частично реализован оффлайн режим.
+Отправленные в оффлайн режиме сообщения будут сохранены и после отключения оффлайн режима - отправлены.
+Можно создать несколько чатов и общаться отдельно с каждым пользователем. Реализован перехват ошибок.
+Работа, конечно, далека от идеала, функционал немного куц, 
+а оффлайн режим недоработан, но что успел переделать за неделю - сделал.
+Это моя старая тестовая работа, которую я переделывал эту неделю, так как она идеальна подходила требованиям.
+Если нужно, есть несколько других моих работ, уже с другими технологиями, репозитории:  
+https://github.com/foxnorth228/NoteManager  
+https://github.com/foxnorth228/portfolio  
+https://github.com/foxnorth228/christmas-task  
+
+
+## Команды
+
+```npm install``` - команда установки зависимостей
+
+```npm run build``` - команда сборки проекта в папку public
+
+```npm run dev``` - команда для запуска dev сервера
+
+```npm run lint``` - команда для проверки синтаксиса (eslint)
+
+```npm run lint:fix``` - команда для проверкии исправления синтаксиса (eslint)
+
+## Деплой
+
+[Деплой на Netlify](https://master--thunderous-pothos-af6dd7.netlify.app/)
+
+##  Стек
+
+* Typescript
+* React (React hooks)
+* Reduxjs/toolkit
+* SCSS
+* Babel, Eslint + prettier
+* Сборка с помощью webpack
+* Менеджер пакетов npm
+
+## Файловая структура
+
+* components - папка с основными компонентами
+* config - папка с глобальными статическими данными
+* hooks - папка с пользовательскими хуками
+* pages - папка со страницами. Т.к. сайт SPA, страницей стал только App
+* routes - папка с данными для React Router
+* services - папка для работы с Green Api
+* store - папка с хранилищем Redux
+
+## Структура компонента
+
+* index - основной файл компонента
+* style - файл со стилями
+* types - файл с типаи данных typescript
+* config - файл с локальными статическими данными
+
+## Именование
+
+- Названия компонентов и их папок: PascalCase
+- Название файлов: camelCase
+- Остальные переменные: camelCase
+- Интерфейсы всегда начинаются с заглавной I, PascalCase
+
+## Скриншоты
+
+## Остальное
+
+Протестировано с помощью PageSpeed Insights.  
+Для импортирования используются aliases.
