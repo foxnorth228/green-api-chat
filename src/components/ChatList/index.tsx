@@ -10,12 +10,12 @@ const ChatList = ({ chat, setCurrentChat }: IChatList) => {
   const chats = useChats();
   const contacts = useGetContacts();
   return (
-    <div className="chatList">
+    <section className="chatList">
       {Object.keys(chats).map((el) => {
         const phone = el;
         const contact = contacts[el] ?? { avatar: "" };
         return (
-          <div
+          <article
             key={phone}
             className={`chatList__item ${
               phone === chat ? "chatList__item_selected" : ""
@@ -32,10 +32,10 @@ const ChatList = ({ chat, setCurrentChat }: IChatList) => {
               className="chatList__avatar"
             />
             <span>{contact?.name ?? phone}</span>
-          </div>
+          </article>
         );
       })}
-    </div>
+    </section>
   );
 };
 

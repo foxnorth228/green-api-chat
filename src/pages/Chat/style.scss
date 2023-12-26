@@ -32,7 +32,7 @@
     justify-items: center;
 }
 
-div.interactElem {
+.interactElem {
     width: var(--min-width-first-column);
     height: calc(100vh - var(--menu-chat-height));
     position: absolute;

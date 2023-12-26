@@ -11,12 +11,12 @@ const SwitcherFakeApi = () => {
     [],
   );
   return (
-    <div>
+    <article>
       <label className="switcherFakeApi__label">
         Offline mode
         <input onChange={switchFakeApi} type="checkbox" />
       </label>
-    </div>
+    </article>
   );
 };
 

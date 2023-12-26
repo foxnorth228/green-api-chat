@@ -12,9 +12,9 @@ export const ChatManager = ({
   setCurrentChat,
 }: IChatManager) => {
   return (
-    <div className={`chatManager ${className}`}>
+    <section className={`chatManager ${className}`}>
       <NewChatAdding />
       <ChatList chat={chat} setCurrentChat={setCurrentChat} />
-    </div>
+    </section>
   );
 };

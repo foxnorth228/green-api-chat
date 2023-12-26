@@ -18,7 +18,7 @@ const Chat = () => {
     <main className="chat">
       {isMatches ? (
         <>
-          <div className="chat__menu_mobile">
+          <section className="chat__menu_mobile">
             <input
               id="menu__toggle"
               type="checkbox"
@@ -33,12 +33,11 @@ const Chat = () => {
               chat={currentChat}
               setCurrentChat={setCurrentChat}
             />
-          </div>
+          </section>
           <ChatZone currentChat={currentChat} />
         </>
       ) : (
         <>
-          <div></div>
           <ChatMenu currentChat={currentChat} />
           <ChatManager
             className=""

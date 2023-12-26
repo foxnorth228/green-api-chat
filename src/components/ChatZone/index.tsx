@@ -14,13 +14,13 @@ export const ChatZone = ({ currentChat }: IChatZone) => {
   );
 
   return (
-    <div className="chatZone">
+    <section className="chatZone">
       {currentChat !== "" && (
         <>
           <BlockMessages messages={messages} />
           <SubmitMessage currentChat={currentChat} />
         </>
       )}
-    </div>
+    </section>
   );
 };

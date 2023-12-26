@@ -7,9 +7,9 @@ import { ISelectedMenu } from "./types";
 
 export const ChatMenu = ({ currentChat }: ISelectedMenu) => {
   return (
-    <div className="chatMenu">
+    <section className="chatMenu">
       <span className="chatMenu__selectedChat">{currentChat}</span>
       <SwitcherFakeApi />
-    </div>
+    </section>
   );
 };
